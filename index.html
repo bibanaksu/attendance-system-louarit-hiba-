@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#">Home</a>
+        <a href="#attendance">Attendance</a>
+        <a href="#addStudent">Add Student</a>
+        <a href="#">Reports</a>
+        <a href="#">Logout</a>
+    </nav>
+
+    <header>
+        <h1>Attendance System</h1>
+    </header>
+
+    <!-- Attendance Table -->
+    <section id="attendance">
+        <h2>Attendance Table</h2>
+        <table id="attendanceTable">
+       <div id="searchContainer">
+    <label for="searchName">Search by Name:</label>
+    <input type="text" id="searchName" placeholder="Type a name...">
+</div>
+
+<div id="sortButtons">
+    <button id="sortAbsences">Sort by Absences (Ascending)</button>
+    <button id="sortParticipation">Sort by Participation (Descending)</button>
+</div>
+
+<p id="sortMessage"></p>
+
+            <thead>
+                <tr>
+                    <th rowspan="2">Last Name</th>
+                    <th rowspan="2">First Name</th>
+                    <th colspan="2">S1</th>
+                    <th colspan="2">S2</th>
+                    <th colspan="2">S3</th>
+                    <th colspan="2">S4</th>
+                    <th colspan="2">S5</th>
+                    <th colspan="2">S6</th>
+                    <th rowspan="2">Absences</th>
+                    <th rowspan="2">Participation</th>
+                    <th rowspan="2">Message</th>
+                </tr>
+                <tr>
+                    <th>P</th><th>Pa</th>
+                    <th>P</th><th>Pa</th>
+                    <th>P</th><th>Pa</th>
+                    <th>P</th><th>Pa</th>
+                    <th>P</th><th>Pa</th>
+                    <th>P</th><th>Pa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sara</td>
+                    <td>Ahmed</td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Yacine</td>
+                    <td>Ali</td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Houcine</td>
+                    <td>Rania</td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td><input type="checkbox" class="session"></td>
+                    <td><input type="checkbox" class="participation"></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </section>
+    <div style="text-align: center; margin: 20px;">
+    <button id="highlightExcellent">Highlight Excellent Students</button>
+    <button id="resetColors">Reset Colors</button>
+</div>
+
+<!-- Show Report Button -->
+<section id="reportSection">
+    <button id="showReportBtn">Show Report</button>
+    <div id="reportResults" style="margin-top: 20px;">
+        <p>Number of Students: <span id="totalStudents">0</span></p>
+        <p>Total Present (all sessions): <span id="totalPresent">0</span></p>
+        <p>Total Participated (all sessions): <span id="totalParticipation">0</span></p>
+      <canvas id="reportChart"></canvas> <!-- no width/height attributes -->
+
+    </div>
+</section>
+
+
+    <!-- Add Student Form -->
+    <section id="addStudent">
+        <h2>Add a New Student</h2>
+        <form id="studentForm">
+            <input type="text" id="studentId" placeholder="Student ID" required>
+            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="submit">Add Student</button>
+        </form>
+    </section>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<!-- jQuery UI for color animation -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

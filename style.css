@@ -1,0 +1,294 @@
+/* ===== General Styles ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f3f7;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* ===== Header ===== */
+header h1 {
+    background-color: #994D47;   /* medium red */
+    color: #E6E5D5;              /* very light beige text */
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    font-size: 2em;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #66281F;   /* dark red */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.navbar a {
+    color: #E6E5D5;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #994D47;   /* medium red */
+}
+
+/* ===== Table ===== */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid #BDB9A3; /* light border */
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+th {
+    background-color: #9D8361;   /* brown/tan headers */
+    font-weight: 600;
+    color: #fff;
+}
+
+/* ===== Row Colors based on Absences ===== */
+tr.green { background-color: #d4edda; }   /* light green - few absences */
+tr.yellow { background-color: #fff3cd; }  /* light yellow - medium absences */
+tr.red { background-color: #f8d7da; }     /* light red - many absences */
+
+
+/* ===== Form Styles ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #994D47;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+form input:focus {
+    border-color: #66281F;
+}
+
+form button {
+    padding: 12px;
+    margin-top: 10px;
+    background-color: #994D47;
+    color: #E6E5D5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background-color: #66281F;
+}
+
+/* ===== Checkbox Styles ===== */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #994D47; /* medium red checkmark */
+    cursor: pointer;
+}
+
+/* ===== Section Headings ===== */
+section h2 {
+    text-align: center;
+    margin-top: 40px;
+    color: #66281F;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    th, td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    th::before, td::before {
+        position: absolute;
+        left: 10px;
+        top: 8px;
+        font-weight: 600;
+    }
+    
+}
+#reportSection {
+    text-align: center;
+    margin: 40px auto;
+}
+
+#reportSection button {
+    padding: 12px 25px;
+    background-color: #994D47;
+    color: #E6E5D5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+#reportSection button:hover {
+    background-color: #66281F;
+}
+
+#reportResults p {
+    font-size: 1.1em;
+    margin: 8px 0;
+}
+#reportChart {
+    display: block;
+    width: 90%;         /* slightly wider */
+    max-width: 500px;   /* a bit bigger than before */
+    height: 300px;      /* taller */
+    margin: 20px auto;
+}
+
+
+/* Pulsing highlight for excellent students (dark red) */
+@keyframes pulseHighlight {
+    0% { background-color: #66281F; }   /* dark red */
+    50% { background-color: inherit; }  /* keep original green/yellow/red */
+    100% { background-color: #66281F; } /* dark red */
+}
+
+.highlight {
+    animation: pulseHighlight 1s ease-in-out 3; /* pulse 3 times */
+}
+
+/* ===== Highlight / Reset Buttons (Matching Color Palette) ===== */
+#highlightExcellent, #resetColors {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Highlight Excellent Students button */
+#highlightExcellent {
+    background-color: #9D8361; /* tan/brown */
+    color: #E6E5D5; /* very light beige text */
+}
+
+#highlightExcellent:hover {
+    background-color: #994D47; /* medium red */
+}
+
+/* Reset Colors button */
+#resetColors {
+    background-color: #66281F; /* dark red */
+    color: #E6E5D5;
+}
+
+#resetColors:hover {
+    background-color: #994D47; /* medium red */
+}
+
+/* Optional: smooth transition for table rows */
+#attendanceTable tbody tr {
+    transition: background-color 0.5s ease;
+}
+#attendanceControls button {
+    padding: 8px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #9D8361;
+    color: #E6E5D5;
+    transition: background 0.3s;
+}
+
+#attendanceControls button:hover {
+    background-color: #994D47;
+}
+
+#searchName {
+    margin-right: 10px;
+}
+/* Search + Sorting Container */
+#searchContainer, #sortButtons {
+    width: 95%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#searchContainer label {
+    font-weight: 600;
+    color: #66281F;
+}
+
+#searchName {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #994D47;
+    outline: none;
+}
+
+#searchName:focus {
+    border-color: #66281F;
+}
+
+#sortButtons button {
+    padding: 10px 20px;
+    background-color: #9D8361;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#sortButtons button:hover {
+    background-color: #66281F;
+}
+
+#sortMessage {
+    text-align: center;
+    font-weight: 600;
+    color: #66281F;
+    margin-bottom: 10px;
+}
