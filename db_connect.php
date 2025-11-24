@@ -1,14 +1,15 @@
 <?php
-require 'config.php';
+// db_connect.php
+$host = 'localhost';
+$dbname = 'attendance_db'; // Make sure this is correct
+$username = 'root'; // Default WAMP username
+$password = ''; // Default WAMP password
 
 try {
-    $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connection successful";
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-    // Optional: log to file
-    file_put_contents('db_error.log', $e->getMessage(), FILE_APPEND);
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->exec("SET NAMES utf8");
+} catch(PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }
 ?>
-

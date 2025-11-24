@@ -1,57 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Student</title>
-</head>
-<body>
-<h2>Add Student</h2>
-
-<form method="post" action="">
-    Student ID: <input type="text" name="student_id" required><br><br>
-    Full Name: <input type="text" name="name" required><br><br>
-    Group: <input type="text" name="group" required><br><br>
-    <input type="submit" value="Add Student">
-</form>
-
 <?php
+require 'db_connect.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $student_id = trim($_POST['student_id']);
-    $name = trim($_POST['name']);
-    $group = trim($_POST['group']);
 
-    // 1️⃣ Validation
-    if (!is_numeric($student_id)) {
-        echo "<p style='color:red'>Student ID must be numeric.</p>";
+    // Get form fields
+    $student_id = trim($_POST['student_id'] ?? '');
+    $firstname = trim($_POST['firstname'] ?? '');
+    $lastname = trim($_POST['lastname'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $group_name = trim($_POST['group_name'] ?? '');
+
+    // Validation
+    if (!is_numeric($student_id) || empty($firstname) || empty($lastname) || empty($group_name)) {
+        echo "<p style='color:red'>Please provide valid data.</p>";
         exit;
     }
 
-    if (empty($name) || empty($group)) {
-        echo "<p style='color:red'>Name and Group are required.</p>";
-        exit;
+    // Insert into DB
+    $stmt = $conn->prepare(
+        "INSERT INTO students (student_id, firstname, lastname, email, group_name) 
+         VALUES (?, ?, ?, ?, ?)"
+    );
+
+    try {
+        $stmt->execute([$student_id, $firstname, $lastname, $email, $group_name]);
+        echo "<p style='color:green'>Student added successfully!</p>";
+        echo "<a href='index.php'>Back to List</a>";
+    } catch (PDOException $e) {
+        echo "<p style='color:red'>Error: " . $e->getMessage() . "</p>";
     }
-
-    // 2️⃣ Load students.json
-    $file = 'students.json';
-    $students = [];
-    if (file_exists($file)) {
-        $data = file_get_contents($file);
-        $students = json_decode($data, true) ?? [];
-    }
-
-    // 3️⃣ Add new student
-    $students[] = [
-        'student_id' => $student_id,
-        'name' => $name,
-        'group' => $group
-    ];
-
-    // 4️⃣ Save back to JSON
-    file_put_contents($file, json_encode($students, JSON_PRETTY_PRINT));
-
-    // 5️⃣ Confirmation
-    echo "<p style='color:green'>Student $name added successfully!</p>";
 }
 ?>
-
-</body>
-</html>
