@@ -76,81 +76,86 @@ function attachRowInteractions(row) {
 }
 
 // ===== Initialize existing rows =====
-tableBody.querySelectorAll('tr').forEach(row => {
-    attachCheckboxListeners(row);
-    attachRowInteractions(row);
-});
+if (tableBody) {
+    tableBody.querySelectorAll('tr').forEach(row => {
+        attachCheckboxListeners(row);
+        attachRowInteractions(row);
+    });
+}
 
 // ===== Add student =====
-studentForm.addEventListener('submit', e => {
-    e.preventDefault();
+if (studentForm) {
+    studentForm.addEventListener('submit', e => {
+        e.preventDefault();
 
-    const studentId = document.getElementById('studentId').value.trim();
-    const lastName = document.getElementById('lastName').value.trim();
-    const firstName = document.getElementById('firstName').value.trim();
-    const email = document.getElementById('email').value.trim();
+        const studentId = document.getElementById('studentId').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const firstName = document.getElementById('firstName').value.trim();
+        const email = document.getElementById('email').value.trim();
 
-    if (!/^\d+$/.test(studentId)) { alert("Student ID must be a number"); return; }
-    if (!/^[A-Za-z]+$/.test(lastName)) { alert("Last Name must contain only letters"); return; }
-    if (!/^[A-Za-z]+$/.test(firstName)) { alert("First Name must contain only letters"); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert("Email is invalid"); return; }
+        if (!/^\d+$/.test(studentId)) { alert("Student ID must be a number"); return; }
+        if (!/^[A-Za-z]+$/.test(lastName)) { alert("Last Name must contain only letters"); return; }
+        if (!/^[A-Za-z]+$/.test(firstName)) { alert("First Name must contain only letters"); return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert("Email is invalid"); return; }
 
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td>${lastName}</td>
-        <td>${firstName}</td>
-        ${'<td><input type="checkbox" class="session"></td><td><input type="checkbox" class="participation"></td>'.repeat(7)}
-        <td>0</td>
-        <td>0</td>
-        <td></td>
-    `;
-    tableBody.appendChild(newRow);
-    attachCheckboxListeners(newRow);
-    attachRowInteractions(newRow);
-    updateRow(newRow);
-    studentForm.reset();
-});
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${lastName}</td>
+            <td>${firstName}</td>
+            ${'<td><input type="checkbox" class="session"></td><td><input type="checkbox" class="participation"></td>'.repeat(6)}
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+        `;
+        tableBody.appendChild(newRow);
+        attachCheckboxListeners(newRow);
+        attachRowInteractions(newRow);
+        updateRow(newRow);
+        studentForm.reset();
+    });
+}
 
 // ===== REPORT CHART =====
-showReportBtn.addEventListener('click', () => {
-    const rows = tableBody.querySelectorAll('tr');
-    const totalStudents = rows.length;
-    let totalPresent = 0;
-    let totalParticipation = 0;
+if (showReportBtn) {
+    showReportBtn.addEventListener('click', () => {
+        const rows = tableBody.querySelectorAll('tr');
+        const totalStudents = rows.length;
+        let totalPresent = 0;
+        let totalParticipation = 0;
 
-    rows.forEach(row => {
-        row.querySelectorAll('.session').forEach(cb => { if (cb.checked) totalPresent++; });
-        row.querySelectorAll('.participation').forEach(cb => { if (cb.checked) totalParticipation++; });
-    });
+        rows.forEach(row => {
+            row.querySelectorAll('.session').forEach(cb => { if (cb.checked) totalPresent++; });
+            row.querySelectorAll('.participation').forEach(cb => { if (cb.checked) totalParticipation++; });
+        });
 
-    totalStudentsEl.textContent = totalStudents;
-    totalPresentEl.textContent = totalPresent;
-    totalParticipationEl.textContent = totalParticipation;
+        totalStudentsEl.textContent = totalStudents;
+        totalPresentEl.textContent = totalPresent;
+        totalParticipationEl.textContent = totalParticipation;
 
-    if (reportChart) reportChart.destroy();
+        if (reportChart) reportChart.destroy();
 
-    reportChart = new Chart(reportChartEl, {
-        type: 'bar',
-        data: {
-            labels: ['Students', 'Present', 'Participation'],
-            datasets: [{
-                label: 'Attendance Report',
-                data: [totalStudents, totalPresent, totalParticipation],
-                backgroundColor: ['#9D8361', '#d4edda', '#fff3cd'],
-                borderColor: ['#66281F', '#28a745', '#ffc107'],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: false,
-            maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true }
+        reportChart = new Chart(reportChartEl, {
+            type: 'bar',
+            data: {
+                labels: ['Students', 'Present', 'Participation'],
+                datasets: [{
+                    label: 'Attendance Report',
+                    data: [totalStudents, totalPresent, totalParticipation],
+                    backgroundColor: ['#9D8361', '#d4edda', '#fff3cd'],
+                    borderColor: ['#66281F', '#28a745', '#ffc107'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
             }
-        }
+        });
     });
-});
-
+}
 
 // ===================================================
 //  ALL JQUERY FUNCTIONS — merged in ONE block
@@ -208,3 +213,23 @@ $(document).ready(function() {
         $('#attendanceTable tbody tr').removeClass('highlight');
     });
 });
+
+// ===== PAGE SWITCHING =====
+const pages = document.querySelectorAll('.page');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function showPage(pageId) {
+    pages.forEach(p => p.style.display = 'none');
+    const page = document.getElementById(pageId);
+    if(page) page.style.display = 'block';
+}
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPage(link.dataset.page);
+    });
+});
+
+// Show Home page by default
+showPage('home');
