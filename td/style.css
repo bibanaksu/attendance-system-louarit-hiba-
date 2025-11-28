@@ -152,38 +152,6 @@ section h2 {
     }
     
 }
-#reportSection {
-    text-align: center;
-    margin: 40px auto;
-}
-
-#reportSection button {
-    padding: 12px 25px;
-    background-color: #994D47;
-    color: #E6E5D5;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background 0.3s;
-}
-
-#reportSection button:hover {
-    background-color: #66281F;
-}
-
-#reportResults p {
-    font-size: 1.1em;
-    margin: 8px 0;
-}
-#reportChart {
-    display: block;
-    width: 90%;         /* slightly wider */
-    max-width: 500px;   /* a bit bigger than before */
-    height: 300px;      /* taller */
-    margin: 20px auto;
-}
-
 
 /* Pulsing highlight for excellent students (dark red) */
 @keyframes pulseHighlight {
@@ -296,5 +264,63 @@ section h2 {
     color: #66281F;
     margin-bottom: 10px;
 }
+/* Make the reports page a flex container, full viewport height */
+#reports {
+    display: flex;
+    justify-content: center;   /* horizontal center */
+    align-items: center;       /* vertical center */
+    min-height: 80vh;          /* occupy most of the viewport height */
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
+/* Inner section with white background, shadow, padding */
+#reportSection {
+    text-align: center;
+    background-color: #fff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    max-width: 700px;
+    width: 100%;
+}
 
+/* Center button inside report section */
+.center-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Chart styling */
+#reportChart {
+    display: block;
+    width: 90%;
+    max-width: 600px;
+    height: 300px;
+    margin: 20px auto;
+}
+
+/* Button styling */
+#showReportBtn {
+    padding: 12px 25px;
+    background-color: #994D47;
+    color: #E6E5D5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+#showReportBtn:hover {
+    background-color: #66281F;
+}
+
+/* Stats text */
+#reportResults p {
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #66281F;
+    font-weight: 500;
+}

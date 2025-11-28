@@ -161,13 +161,20 @@ try {
 
 <!-- REPORTS PAGE -->
 <div id="reports" class="page" style="display:none;">
-    
-    <p>Total Students: <span id="totalStudents">0</span></p>
-    <p>Total Present: <span id="totalPresent">0</span></p>
-    <p>Total Participation: <span id="totalParticipation">0</span></p>
-    <canvas id="reportChart"></canvas>
-    <button id="showReportBtn">Show Report</button>
+    <div id="reportSection">
+        <p>Total Students: <span id="totalStudents">0</span></p>
+        <p>Total Present: <span id="totalPresent">0</span></p>
+        <p>Total Participation: <span id="totalParticipation">0</span></p>
+
+        <canvas id="reportChart"></canvas>
+
+        <div class="center-button">
+            <button id="showReportBtn">Show Report</button>
+        </div>
+    </div>
 </div>
+
+
 
 <!-- LOGOUT PAGE -->
 <div id="logout" class="page" style="display:none;">

@@ -1,6 +1,6 @@
-// ===================================================
+
 // DOM ELEMENTS
-// ===================================================
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const tableBody = document.querySelector('#attendanceTable tbody');
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===================================================
+ 
     // REPORT CHART
     // ===================================================
     if(showReportBtn) {
